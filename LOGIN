@@ -1,0 +1,138 @@
+#include <graphics.h>
+#include <windows.h>
+#include <iostream>
+using namespace std;
+
+
+void draw(){
+	for(int i=0,d=0;i<4;i++,d=d+60){
+		rectangle(200,300+d,250,350+d);
+		rectangle(260,300+d,325,350+d);
+		rectangle(335,300+d,385,350+d);
+	}
+	rectangle(200,175,385,250);
+	
+	outtextxy(210,310,"1");
+	outtextxy(280,310,"2");
+	outtextxy(345,310,"3");
+	outtextxy(210,370,"4");
+	outtextxy(280,370,"5");
+	outtextxy(345,370,"6");
+	outtextxy(210,430,"7");
+	outtextxy(280,430,"8");
+	outtextxy(345,430,"9");
+	outtextxy(210,490,"<");
+	outtextxy(280,490,"0");
+	outtextxy(345,490,">");
+}
+
+void input_number(int a[], int n, int i){
+	while(1){
+		if(GetAsyncKeyState(49)){
+			a[i] = 1;
+			break;
+		}
+		if(GetAsyncKeyState(50)){
+			a[i] = 2;
+			break;
+		}
+		if(GetAsyncKeyState(51)){
+			a[i] = 3;
+			break;
+		}
+		if(GetAsyncKeyState(52)){
+			a[i] = 4;
+			break;
+		}
+		if(GetAsyncKeyState(53)){
+			a[i] = 5;
+			break;
+		}
+		if(GetAsyncKeyState(54)){
+			a[i] = 6;
+			break;
+		}
+		if(GetAsyncKeyState(55)){
+			a[i] = 7;
+			break;
+		}
+		if(GetAsyncKeyState(56)){
+			a[i] = 8;
+			break;
+		}
+		if(GetAsyncKeyState(57)){
+			a[i] = 9;
+			break;
+		}
+		if(GetAsyncKeyState(58)){
+			a[i] = 0;
+			break;
+		}
+	}
+}
+
+void star(int i)
+{
+	if(i==1)
+	{
+	 outtextxy(339+10,200,"*");
+	}
+	if(i==2)
+	{
+		outtextxy(293+10,200,"*");
+	}
+	if(i==3)
+	{
+	outtextxy(247+10,200,"*");	
+	}
+	if(i==4)
+	{
+	outtextxy(200+10,200,"*");	
+	}
+
+}
+
+void accept(){
+	cleardevice();
+	settextstyle(1,0,5);
+	outtextxy(300,300,"Accept");
+	delay(1000);
+	getch();
+}
+
+void error(){
+	cleardevice();
+	settextstyle(1,0,5);
+	outtextxy(300,300,"Error");
+	delay(1000);
+	getch();
+	
+}
+
+void check(int a[],int n)
+{
+	if(a[1]==1&&a[2]==2&&a[3]==3&&a[4]==4)
+	{
+		accept();
+	}
+	else
+		error();
+}
+
+main(){
+	int n = 4;
+	int pin[n];
+	initwindow(800,600,"LOGIN");
+	draw();
+	for(int i=1;i<=4;i++){
+   		input_number(pin,n,i);
+   		star(i);
+   		delay(100);
+	}
+	delay(100);
+	check(pin,n);
+	
+	getch();
+	closegraph();
+	return 0;
+}
