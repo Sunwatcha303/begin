@@ -1,29 +1,29 @@
 #include <graphics.h>
 #include <windows.h>
-#include <iostream>
+
 using namespace std;
 
-
+int flag = 0;
 void draw(){
-	for(int i=0,d=0;i<4;i++,d=d+60){
-		rectangle(200,300+d,250,350+d);
-		rectangle(260,300+d,325,350+d);
-		rectangle(335,300+d,385,350+d);
+	for(int i=0;i<181;i+=60){
+		rectangle(315,300+i,365,350+i);
+		rectangle(375,300+i,425,350+i);
+		rectangle(435,300+i,485,350+i);
 	}
-	rectangle(200,175,385,250);
+	rectangle(315,230,485,280);
 	
-	outtextxy(210,310,"1");
-	outtextxy(280,310,"2");
-	outtextxy(345,310,"3");
-	outtextxy(210,370,"4");
-	outtextxy(280,370,"5");
-	outtextxy(345,370,"6");
-	outtextxy(210,430,"7");
-	outtextxy(280,430,"8");
-	outtextxy(345,430,"9");
-	outtextxy(210,490,"<");
-	outtextxy(280,490,"0");
-	outtextxy(345,490,">");
+	outtextxy(335,320,"1");
+	outtextxy(395,320,"2");
+	outtextxy(455,320,"3");
+	outtextxy(335,380,"4");
+	outtextxy(395,380,"5");
+	outtextxy(455,380,"6");
+	outtextxy(335,440,"7");
+	outtextxy(395,440,"8");
+	outtextxy(455,440,"9");
+	outtextxy(335,500,"<");
+	outtextxy(395,500,"0");
+	outtextxy(455,500,">");
 }
 
 void input_number(int a[], int n, int i){
@@ -75,19 +75,19 @@ void star(int i)
 {
 	if(i==1)
 	{
-	 outtextxy(339+10,200,"*");
+		outtextxy(349,250,"*");
 	}
 	if(i==2)
 	{
-		outtextxy(293+10,200,"*");
+		outtextxy(383,250,"*");
 	}
 	if(i==3)
 	{
-	outtextxy(247+10,200,"*");	
+		outtextxy(417,250,"*");	
 	}
 	if(i==4)
 	{
-	outtextxy(200+10,200,"*");	
+		outtextxy(451,250,"*");	
 	}
 
 }
@@ -95,17 +95,17 @@ void star(int i)
 void accept(){
 	cleardevice();
 	settextstyle(1,0,5);
-	outtextxy(300,300,"Accept");
+	outtextxy(300,280,"Accept");
 	delay(1000);
-	getch();
+	flag = 1;
 }
 
 void error(){
 	cleardevice();
 	settextstyle(1,0,5);
-	outtextxy(300,300,"Error");
+	outtextxy(330,280,"Error");
 	delay(1000);
-	getch();
+	flag = 0;
 	
 }
 
@@ -122,16 +122,18 @@ void check(int a[],int n)
 main(){
 	int n = 4;
 	int pin[n];
-	initwindow(800,600,"LOGIN");
-	draw();
-	for(int i=1;i<=4;i++){
+	
+	while(flag == 0){
+		initwindow(800,600,"LOGIN");
+		draw();
+		for(int i=1;i<=4;i++){
    		input_number(pin,n,i);
    		star(i);
-   		delay(100);
+   		delay(250);
+		}
+		delay(1000);
+		check(pin,n);
 	}
-	delay(100);
-	check(pin,n);
-	
 	getch();
 	closegraph();
 	return 0;
