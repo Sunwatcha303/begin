@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <conio.h>
+#include <time.h>
+#include <iostream>
+#include <windows.h>
+
+using namespace std;
+main(){
+
+    int ms=0,s=0,m=0;
+
+    FILE *timer;
+    timer = fopen("Time.txt","w");
+    fprintf(timer,"Lap\n");
+    while(!GetAsyncKeyState(VK_ESCAPE)){ // กดปุ่ม Esc เพื่อออก
+        ms++;
+        if(ms>9){
+            s++;
+            ms=0;
+        }
+        else if(s>59){
+            m++;
+            s=0;
+        }
+        else if(m>59){
+            m=0;
+        }
+
+        printf("%02dm %02ds %dms",m,s,ms);
+        system("cls");
+
+        if(GetAsyncKeyState(VK_RETURN)){ //กดปุ่ม Enter เพื่อบันทึกรอบ
+            fprintf(timer,"%02d:%02d:%d\n",m,s,ms);
+        }
+        else if(GetAsyncKeyState(0x50)){ //กดปุ่ม p เพื่อหยุดพัก
+            system("PAUSE");
+        }
+    }
+    fclose(timer);
+    getchar();
+}
