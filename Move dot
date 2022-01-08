@@ -1,0 +1,72 @@
+#include <graphics.h>
+
+int w = 800, h= 600;
+int x = w/2;
+int y = h/2;
+
+void draw(){
+
+    for(int i=0;i<601;i+=10){
+        outtextxy(100+i,100,"#");
+    }
+
+    for(int i=0;i<400;i+=10){
+        outtextxy(100,110+i,"#");
+        outtextxy(700,110+i,"#");
+    }
+
+    for(int i=0;i<601;i+=10){
+        outtextxy(100+i,500,"#");
+    }
+}
+
+void logic(){
+
+    outtextxy(x,y,"*");
+    if(GetAsyncKeyState(VK_DOWN)){
+        y = y+10;
+    }
+    if(GetAsyncKeyState(VK_UP)){
+        y = y-10;
+    }
+    if(GetAsyncKeyState(VK_LEFT)){
+        x = x-10;
+    }
+    if(GetAsyncKeyState(VK_RIGHT)){
+        x = x+10;
+    }
+
+    if(x>690){
+        x=110;
+    }
+    if(x<110){
+        x=690;
+    }
+    if(y>490){
+        y=110;
+    }
+    if(y<110){
+        y=490;
+    }
+}
+
+main(){
+
+    initwindow(w,h,"MOVEMENT");
+    int page = 0;
+
+    while(!GetAsyncKeyState(VK_RETURN)){
+
+        setactivepage(page);
+        setvisualpage(1-page);
+        cleardevice();
+        draw();
+        logic();
+        delay(50);
+        page = 1-page;
+    }
+
+    getch();
+    closegraph();
+    return 0;
+}
