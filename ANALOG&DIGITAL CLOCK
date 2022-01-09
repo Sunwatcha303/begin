@@ -1,61 +1,70 @@
 #include <graphics.h>
 #include <iostream>
-#include <cmath>
-#include <ctime>
+#include <math.h>
+#include <time.h>
 
 #define PI 3.1415
+int width=1000,hight=700;
 using namespace std;
 
+void draw(){
+    setcolor(WHITE);
+    circle(width/2,hight/2,300);
+    circle(width/2,hight/2,5);
+    settextstyle(10,0,3);
+    outtextxy(width/2+275*sin(1*PI/6)-5 , hight/2-275*cos(1*PI/6) , "1");
+    outtextxy(width/2+275*sin(2*PI/6)-5 , hight/2-275*cos(2*PI/6) , "2");
+    outtextxy(width/2+275*sin(3*PI/6)-5 , hight/2-275*cos(3*PI/6) , "3");
+    outtextxy(width/2+275*sin(4*PI/6)-5 , hight/2-275*cos(4*PI/6) , "4");
+    outtextxy(width/2+275*sin(5*PI/6)-5 , hight/2-275*cos(5*PI/6)-10 , "5");
+    outtextxy(width/2+275*sin(6*PI/6)-5 , hight/2-275*cos(6*PI/6)-10 , "6");
+    outtextxy(width/2+275*sin(7*PI/6)-5 , hight/2-275*cos(7*PI/6)-10 , "7");
+    outtextxy(width/2+275*sin(8*PI/6)-5 , hight/2-275*cos(8*PI/6) , "8");
+    outtextxy(width/2+275*sin(9*PI/6)-10 , hight/2-275*cos(9*PI/6) , "9");
+    outtextxy(width/2+275*sin(10*PI/6)-10 , hight/2-275*cos(10*PI/6) , "10");
+    outtextxy(width/2+275*sin(11*PI/6)-10 , hight/2-275*cos(11*PI/6) , "11");
+    outtextxy(width/2+275*sin(12*PI/6)-5 , hight/2-275*cos(12*PI/6) , "12");
+}
 
+void hand(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    // Hour Hand
+    setcolor(RED);
+    line(width/2,hight/2,width/2+150*sin(ltm->tm_hour * PI/6),hight/2-150*cos(ltm->tm_hour * PI/6));
+    // Minute Hand
+    setcolor(GREEN);
+    line(width/2,hight/2,width/2+190*sin(ltm->tm_min * PI/30),hight/2-190*cos(ltm->tm_min * PI/30));
+    // Second Hand
+    setcolor(WHITE);
+    line(width/2,hight/2,width/2+200*sin(ltm->tm_sec * PI/30),hight/2-200*cos(ltm->tm_sec * PI/30));
+}
 int main()
 {
-	int width=1000,hight=700;
-    initwindow(width,hight,"ANALOG CLOCK");
     int page=0;
+    char t[15];
+    initwindow(width,hight,"ANALOG CLOCK");
+
     while(1)
     {
         setactivepage(page);
         setvisualpage(1-page);
         cleardevice();
-        setcolor(WHITE);
-        circle(width/2,hight/2,300);
-        circle(width/2,hight/2,5);
-        settextstyle(10,0,3);
-        outtextxy(width/2+275*sin(1*PI/6)-5 , hight/2-275*cos(1*PI/6) , "1");
-        outtextxy(width/2+275*sin(2*PI/6)-5 , hight/2-275*cos(2*PI/6) , "2");
-        outtextxy(width/2+275*sin(3*PI/6)-5 , hight/2-275*cos(3*PI/6) , "3");
-        outtextxy(width/2+275*sin(4*PI/6)-5 , hight/2-275*cos(4*PI/6) , "4");
-        outtextxy(width/2+275*sin(5*PI/6)-5 , hight/2-275*cos(5*PI/6)-10 , "5");
-        outtextxy(width/2+275*sin(6*PI/6)-5 , hight/2-275*cos(6*PI/6)-10 , "6");
-        outtextxy(width/2+275*sin(7*PI/6)-5 , hight/2-275*cos(7*PI/6)-10 , "7");
-        outtextxy(width/2+275*sin(8*PI/6)-5 , hight/2-275*cos(8*PI/6) , "8");
-        outtextxy(width/2+275*sin(9*PI/6)-10 , hight/2-275*cos(9*PI/6) , "9");
-        outtextxy(width/2+275*sin(10*PI/6)-10 , hight/2-275*cos(10*PI/6) , "10");
-        outtextxy(width/2+275*sin(11*PI/6)-10 , hight/2-275*cos(11*PI/6) , "11");
-        outtextxy(width/2+275*sin(12*PI/6)-5 , hight/2-275*cos(12*PI/6) , "12");
-    
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
-        system("cls");
-        cout<<ltm->tm_hour<<":"<<ltm->tm_min <<":"<<ltm->tm_sec;
-         
-    // Hour Hand
-        setcolor(RED);
-        line(width/2,hight/2,width/2+150*sin(ltm->tm_hour * PI/6),hight/2-150*cos(ltm->tm_hour * PI/6));
-    // Minute Hand
-        setcolor(GREEN);
-        line(width/2,hight/2,width/2+190*sin(ltm->tm_min * PI/30),hight/2-190*cos(ltm->tm_min * PI/30));
-    // Secod Hand
-        setcolor(WHITE);
-		line(width/2,hight/2,width/2+200*sin(ltm->tm_sec * PI/30),hight/2-200*cos(ltm->tm_sec * PI/30));
-         
+        draw();
+
+        rectangle(90,90,220,130);
+        _strtime(t);
+        outtextxy(100,100,t);
+
+        hand();
+
         if(GetAsyncKeyState(VK_RETURN))
             break;
         delay(10);
-         
+
         page = 1-page;
     }
-    
+
 	closegraph();
 	return 0;
 }
