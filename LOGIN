@@ -28,7 +28,7 @@ void draw(){
 	outtextxy(455,500,">");
 }
 
-void input_number(int a[], int n, int i){
+void input_number(int a[], int i){
 	while(1){
 		if(GetAsyncKeyState(49)){
 			a[i] = 1;
@@ -111,7 +111,7 @@ void error(){
 	
 }
 
-void check(int a[],int n)
+void check(int a[])
 {
 	if(a[1]==1&&a[2]==2&&a[3]==3&&a[4]==4)
 	{
@@ -129,12 +129,12 @@ main(){
 		initwindow(800,600,"LOGIN");
 		draw();
 		for(int i=1;i<=4;i++){
-   		input_number(pin,n,i);
-   		star(i);
-   		delay(250);
+   			input_number(pin,i);
+   			star(i);
+   			delay(250);
 		}
 		delay(1000);
-		check(pin,n);
+		check(pin);
 	}
 	getch();
 	closegraph();
